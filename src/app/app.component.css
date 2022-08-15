@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+app-customer-list {
+    width: 25%;
+}
+
+app-customer-detail {
+    width: 75%;
+}
+
+#container {
+    width: 80%;
+    margin: auto;
+}
+
+#customer {
+    display: flex;
+}
+

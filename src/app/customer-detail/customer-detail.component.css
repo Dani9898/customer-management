@@ -1,0 +1,17 @@
+#customer-detail {
+    height: 600px;
+    padding: 30px 40px;
+}
+
+#name {
+    margin: 22px 0 15px 30px;
+}
+
+#address{
+    margin-left: 82px;
+    margin-right: 15px;
+}
+
+#city {
+    margin-left: 20px;
+}

@@ -1,0 +1,15 @@
+<div id="customer-list">
+    <div>Customer List</div>
+    <button>Add</button>
+    <button>Remove</button>
+
+    <div id="customers" *ngFor="let customer of customers">
+        <ul>
+            <li>
+                <input type="checkbox">
+                <span>- {{ customer.name }}</span>
+            </li>
+        </ul>
+        
+    </div>
+</div>

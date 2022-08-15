@@ -8,7 +8,7 @@ import { ICustomer } from '../customer';
 })
 export class CustomerListComponent implements OnInit {
   customers: ICustomer[] = [
-    {name: "marco", address: "Via carbonara 30", city: "Bologna", orders: [ {orderNumber: 1, total: 400, items: 10} ]}
+    {name: "marco", address: "Via carbonara 30", city: "Bologna", orders[]:{orderNumber: 1, total: 400, items: 10}} 
   ];
   constructor() { }
 

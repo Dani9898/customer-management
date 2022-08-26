@@ -27,14 +27,20 @@ export class CustomerListComponent implements OnInit {
   }
 
   onChangeCustomer($event: Event){
-    const id = $event.target.value;
-    const isChecked = $event.target.checked;
-    console.log($event.target);
+    const target = $event.target as HTMLInputElement;
+    const id = Number(target.value);
+    const isChecked = target.checked;
     
+    this.customers.map(customer => {
+      if(customer.id === id) {
+        customer.selected = isChecked;      
+      }
+    })
   }
 
   removeCustomer(){
-    let newCustomers = this.customers.filter(customer => {customer.selected})
+    let newCustomers = this.customers.filter(customer => !customer.selected)
+    this.customers = newCustomers;
     console.log(newCustomers);
   }
 }

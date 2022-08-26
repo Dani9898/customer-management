@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ICustomer } from '../customer';
+import { CustomerSelectedService } from '../customer-selected.service';
 
 @Component({
   selector: 'app-customer-detail',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerDetailComponent implements OnInit {
 
-  constructor() { }
+  customer: ICustomer | undefined;
+  constructor(private _customerSelectedService: CustomerSelectedService) { }
 
   ngOnInit(): void {
+    this._customerSelectedService.customerSelected$.subscribe(data => this.customer = data)    
   }
 
 }

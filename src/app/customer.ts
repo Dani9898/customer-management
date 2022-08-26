@@ -1,10 +1,7 @@
 export interface ICustomer {
+    id: number,
     name: string,
     address: string,
-    city: string
-    [orders: number]: {
-        orderNumber: number, 
-        total: number, 
-        items : number
-    }
+    city: string,
+    orders: any
 }

@@ -1,12 +1,12 @@
 <div id="customer-list">
     <div>Customer List</div>
     <button>Add</button>
-    <button>Remove</button>
+    <button (click)="removeCustomer()">Remove</button>
 
     <div id="customers" *ngFor="let customer of customers">
         <ul>
             <li>
-                <input type="checkbox">
+                <input [value]="customer.id" [checked]="customer.selected" (change)="onChangeCustomer($event)" type="checkbox">
                 <span>- <a href="#" (click)="selectedCustomer(customer)">{{ customer.name }}</a></span>
             </li>
         </ul>

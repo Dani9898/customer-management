@@ -3,5 +3,6 @@ export interface ICustomer {
     name: string,
     address: string,
     city: string,
-    orders: any
+    orders: any,
+    selected: boolean
 }

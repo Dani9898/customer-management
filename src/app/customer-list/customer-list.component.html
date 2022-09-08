@@ -1,6 +1,6 @@
 <div id="customer-list">
     <div>Customer List</div>
-    <button>Add</button>
+    <button (click)="addCustomer()">Add</button>
     <button (click)="removeCustomer()">Remove</button>
 
     <div id="customers" *ngFor="let customer of customers">

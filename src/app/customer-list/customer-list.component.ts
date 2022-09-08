@@ -10,11 +10,7 @@ import { CustomerSelectedService } from '../customer-selected.service';
 })
 export class CustomerListComponent implements OnInit {
 
-  customers: ICustomer[] = [
-    {id: 1, name: "Marco", address: "Via carbonara 30", city: "Bologna", orders: [{number: 1, total: 400, items: 14}, {number: 2, total: 190, items: 6}], selected: false },
-    {id: 2, name: "Giovanni", address: "Via marsala 12", city: "Ferrara", orders: [{number: 1, total: 132, items: 4}, {number: 2, total: 700, items: 20}], selected: false }
-  ];
-
+  public customers: ICustomer[] = [];
 
   constructor(private _customerSelectedService: CustomerSelectedService) { }
 
@@ -22,8 +18,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   selectedCustomer(customer: ICustomer) {
-    this._customerSelectedService.sendCustomer(customer)
-    console.log(customer);
+    this._customerSelectedService.sendCustomer(customer);
   }
 
   onChangeCustomer($event: Event){
@@ -38,9 +33,15 @@ export class CustomerListComponent implements OnInit {
     })
   }
 
+  addCustomer(){
+    let customer = {id: this.customers.length + 1, name: `Customer ${this.customers.length + 1}`, address: "", city: "", orders: [], selected: false };
+    this.customers.push(customer);
+  }
+
   removeCustomer(){
-    let newCustomers = this.customers.filter(customer => !customer.selected)
+    let newCustomers = this.customers.filter(customer => !customer.selected);
     this.customers = newCustomers;
-    console.log(newCustomers);
   }
 }
+
+// {number: 0, total: 400, items: 14}, {number: 2, total: 190, items: 6}

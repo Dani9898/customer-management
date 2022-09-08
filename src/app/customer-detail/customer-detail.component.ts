@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ICustomer } from '../customer';
 import { CustomerSelectedService } from '../customer-selected.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-detail',
@@ -9,11 +10,10 @@ import { CustomerSelectedService } from '../customer-selected.service';
 })
 export class CustomerDetailComponent implements OnInit {
 
-  customer: ICustomer | undefined;
+  public customer: ICustomer | undefined;
   constructor(private _customerSelectedService: CustomerSelectedService) { }
 
   ngOnInit(): void {
-    this._customerSelectedService.customerSelected$.subscribe(data => this.customer = data)    
+    this._customerSelectedService.customerSelected$.subscribe(data => this.customer = data);
   }
-
 }

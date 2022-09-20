@@ -23,6 +23,9 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   removeOrder(){
-
+    let newOrders = this.customer?.orders.filter(order => !order.selected);    
+    if(this.customer?.orders){
+      this.customer.orders = newOrders
+    }    
   }
 }

@@ -1,18 +1,30 @@
 <table>
     <thead>
         <tr>
-            <th><input type="checkbox"></th>
+            <th><input type="checkbox" [checked]="false" (change)="onChangeOrders($event)"></th>
             <th>Order</th>
             <th>Total</th>
             <th>Items</th>
         </tr>
     </thead>
     <tbody *ngIf="customer">
-        <tr *ngFor="let order of customer.orders; let i = index">
-            <td><input type="checkbox" [checked]="customer.orders[i].selected"></td>
-            <td>Order N{{customer.orders[i].id}}</td>
-            <td>{{customer.orders[i].total}}</td>
-            <td>{{customer.orders[i].items}}</td>
+        <tr *ngFor="let order of customer.orders">
+            <td><input type="checkbox" [value]="order.id" [checked]="order.selected" (change)="onChangeOrder($event)"></td>
+            <td>Order N{{order.id}}</td>
+            <td (click)="edit(order.id, order.total, 'total')" title="clicca per modificare">{{order.total}}</td>
+            <td (click)="edit(order.id, order.items, 'items')" title="clicca per modificare">{{order.items}}</td>
         </tr>
     </tbody>
 </table>
+
+<div id="editTotal" class="hidden">
+    <label for="total">Modifica il totale</label>
+    <input type="text" name="total" [(ngModel)]="orderTotal">
+    <button (click)="save('total')">Save</button>
+</div>
+
+<div id="editItems" class="hidden">
+    <label for="items">Modifica il numero degli items</label>
+    <input type="text" name="items" [(ngModel)]="orderItems">
+    <button (click)="save('items')">Save</button>
+</div>

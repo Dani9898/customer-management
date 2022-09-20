@@ -1,8 +1,18 @@
-<table #orderList>
-    <tr>
-        <th><input type="checkbox"></th>
-        <th>Order</th>
-        <th>Total</th>
-        <th>Items</th>
-    </tr>
+<table>
+    <thead>
+        <tr>
+            <th><input type="checkbox"></th>
+            <th>Order</th>
+            <th>Total</th>
+            <th>Items</th>
+        </tr>
+    </thead>
+    <tbody *ngIf="customer">
+        <tr *ngFor="let order of customer.orders; let i = index">
+            <td><input type="checkbox" [checked]="customer.orders[i].selected"></td>
+            <td>Order N{{customer.orders[i].id}}</td>
+            <td>{{customer.orders[i].total}}</td>
+            <td>{{customer.orders[i].items}}</td>
+        </tr>
+    </tbody>
 </table>

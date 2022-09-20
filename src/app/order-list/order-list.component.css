@@ -1,0 +1,19 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #ccc;
+}
+th:not(:nth-of-type(1)),
+td:not(:nth-of-type(1)) {
+    width: 100px;
+    text-align: left;
+}
+
+th:nth-of-type(1),
+td:nth-of-type(1) {
+    width: 30px;
+    text-align: left;
+}

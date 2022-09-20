@@ -32,3 +32,11 @@
     width: 90px;
     margin-left: 15px;
 }
+
+button {
+    margin: 30px 10px;
+    cursor: pointer;
+    padding: 7px 15px;
+    background-color: #ccc;
+    border: 1px solid black;
+}

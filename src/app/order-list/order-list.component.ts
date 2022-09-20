@@ -1,4 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ICustomer } from '../customer';
+// import { CustomerSelectedService } from '../customer-selected.service';
 
 @Component({
   selector: 'app-order-list',
@@ -6,6 +8,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
+  @Input("parentData") public customer: ICustomer | undefined;
   constructor() { }
 
   ngOnInit(): void {

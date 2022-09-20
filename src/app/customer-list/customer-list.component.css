@@ -8,23 +8,23 @@ customer-list {
     border: 1px solid black;
 }
 
-#customer-list button {
+button {
     margin: 15px 5px 40px 0px;
+    cursor: pointer;
     padding: 7px 15px;
     background-color: #ccc;
     border: 1px solid black;
-    cursor: pointer;
 }
 
-#customer-list #customers {
+#customers {
     margin: 10px 0;
 }
 
-#customer-list #customers ul  {
+#customers ul  {
     margin: 0;
     padding: 0;
 }
 
-#customer-list #customers ul li {
+#customers ul li {
     list-style-type: none;
 }

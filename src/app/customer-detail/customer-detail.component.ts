@@ -19,9 +19,7 @@ export class CustomerDetailComponent implements OnInit {
 
   addOrder(){
     let newOrder = {id: this.customer?.orders.length+1, total: 0, items: 0, selected: false}
-    this.customer?.orders.push(newOrder);
-    console.log(this.customer);
-    
+    this.customer?.orders.push(newOrder);    
   }
 
   removeOrder(){

@@ -43,5 +43,3 @@ export class CustomerListComponent implements OnInit {
     this.customers = newCustomers;
   }
 }
-
-// {number: 0, total: 400, items: 14}, {number: 2, total: 190, items: 6}

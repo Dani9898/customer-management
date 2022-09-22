@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ICustomer } from '../customer';
 // import { CustomerSelectedService } from '../customer-selected.service';
 
@@ -8,9 +8,12 @@ import { ICustomer } from '../customer';
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
+
   @Input("parentData") public customer: ICustomer | undefined;
+
+  // dati per assegnare i nuovi valori di ogni ordine
   public orderId: number = -1;
-  public orderTotal: number = -1;
+  public orderT: number = -1;
   public orderItems: number = -1;
 
   constructor() { }
@@ -46,7 +49,7 @@ export class OrderListComponent implements OnInit {
     switch (element) {
       case 'total': 
         this.orderId = id;
-        this.orderTotal = orderElement;
+        this.orderT = orderElement;
         this.showDOMelement("editTotal");
       break;
       case 'items':
@@ -64,7 +67,7 @@ export class OrderListComponent implements OnInit {
         for(let i = 0; i < this.customer?.orders.length; i++){
           let order = this.customer?.orders[i];
           if(order.id === this.orderId){
-            order.total = this.orderTotal; 
+            order.total = Number(this.orderT);           
           }
           this.hideDOMelement("editTotal")
         }
@@ -74,7 +77,7 @@ export class OrderListComponent implements OnInit {
         for(let i = 0; i < this.customer?.orders.length; i++){
           let order = this.customer?.orders[i];
           if(order.id === this.orderId){
-            order.items = this.orderItems; 
+            order.items = Number(this.orderItems); 
           }
           this.hideDOMelement("editItems")
         }

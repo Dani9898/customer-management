@@ -11,7 +11,12 @@ export class CustomerDetailComponent implements OnInit {
 
   public customer: ICustomer | undefined;
 
-  constructor(private _customerSelectedService: CustomerSelectedService) { }
+  // orders totals data
+  public ordersN:number = 0;
+  public ordersT:number = 0;
+  public totItems:number = 0;
+
+  constructor(private _customerSelectedService: CustomerSelectedService) {}
 
   ngOnInit(): void {
     this._customerSelectedService.customerSelected$.subscribe(data => this.customer = data);
@@ -19,7 +24,8 @@ export class CustomerDetailComponent implements OnInit {
 
   addOrder(){
     let newOrder = {id: this.customer?.orders.length+1, total: 0, items: 0, selected: false}
-    this.customer?.orders.push(newOrder);    
+    this.customer?.orders.push(newOrder); 
+    this.ordersN = this.customer?.orders.length;
   }
 
   removeOrder(){
@@ -27,5 +33,22 @@ export class CustomerDetailComponent implements OnInit {
     if(this.customer?.orders){
       this.customer.orders = newOrders
     }    
+    this.ordersN = this.customer?.orders.length;
   }
+
+  ngAfterContentChecked(){
+    // Updates the total orders data
+    this.ordersN = this.customer?.orders.length;
+
+    let newOrdersT:number = 0; 
+    let newTotItems: number = 0;
+
+    this.customer?.orders.forEach(order => {
+      newOrdersT += Number(order.total);
+      newTotItems += Number(order.items)
+    });
+    this.ordersT = newOrdersT;
+    this.totItems = newTotItems;
+  }
+
 }

@@ -12,11 +12,11 @@
 
         <!-- order info -->
         <label for="ordersN">Orders N.</label>
-        <input type="text" name="ordersN" id="ordersN">
+        <input type="text" name="ordersN" id="ordersN" [value]="ordersN" disabled>
         <label for="ordersT">Orders Total</label>
-        <input type="text" name="ordersT" id="ordersT">
+        <input type="text" name="ordersT" id="ordersT" [value]="ordersT" disabled>
         <label for="totItems">Tot. Items</label>
-        <input type="text" name="totItems" id="totItems">
+        <input type="text" name="totItems" id="totItems" [value]="totItems" disabled>
     </form>
 
     <button (click)="addOrder()">Add</button>

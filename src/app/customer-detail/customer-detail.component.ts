@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ICustomer } from '../customer';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ICustomer, IOrder } from '../customer';
 import { CustomerSelectedService } from '../customer-selected.service';
 
 @Component({
@@ -7,48 +8,68 @@ import { CustomerSelectedService } from '../customer-selected.service';
   templateUrl: './customer-detail.component.html',
   styleUrls: ['./customer-detail.component.css']
 })
-export class CustomerDetailComponent implements OnInit {
+export class CustomerDetailComponent implements OnDestroy {
 
   public customer: ICustomer | undefined;
 
-  // orders totals data
-  public ordersN:number = 0;
-  public ordersT:number = 0;
-  public totItems:number = 0;
+  public ordersT: number = 0;
+  public totItems: number = 0;
 
-  constructor(private _customerSelectedService: CustomerSelectedService) {}
-
-  ngOnInit(): void {
-    this._customerSelectedService.customerSelected$.subscribe(data => this.customer = data);
+  /**
+   * Get Orders number
+   */
+  public get ordersN(): number {
+    if (!this.customer) return 0;
+    return this.customer.orders.length;
   }
 
-  addOrder(){
-    let newOrder = {id: this.customer?.orders.length+1, total: 0, items: 0, selected: false}
-    this.customer?.orders.push(newOrder); 
-    this.ordersN = this.customer?.orders.length;
+  /**
+   * Customer subscription instance
+   */
+  private customerSubscription: Subscription | undefined;
+
+  constructor(private _customerSelectedService: CustomerSelectedService) {
+    this.customerSubscription = this._customerSelectedService.customerSelected$.subscribe(data => this.customer = data);
   }
 
-  removeOrder(){
-    let newOrders = this.customer?.orders.filter(order => !order.selected);    
-    if(this.customer?.orders){
-      this.customer.orders = newOrders
-    }    
-    this.ordersN = this.customer?.orders.length;
+  /**
+   * Aggiunto lifecycle ngOnDestroy per rimuovere la subscription 
+   * fatta nell'ngOnInit.
+   */
+  ngOnDestroy(): void {
+    if (!this.customerSubscription) return;
+    this.customerSubscription.unsubscribe();
   }
 
-  ngAfterContentChecked(){
-    // Updates the total orders data
-    this.ordersN = this.customer?.orders.length;
+  /**
+   * Aggiunge un nuovo ordine
+   */
+  addOrder() {
+    let newOrder = {} as IOrder;
+    newOrder.id = this.customer?.orders.length + 1
+    newOrder.total = 0;
+    newOrder.items = 0;
+    newOrder.selected = false;
+    this.customer?.orders.push(newOrder);
+  }
 
-    let newOrdersT:number = 0; 
-    let newTotItems: number = 0;
+  /**
+   * Rimuove gli ordini selezionati
+   */
+  removeOrder() {
+    if (!this.customer) return;
+    this.customer.orders = this.customer.orders.filter(order => !order.selected);
+  }
 
+  /**
+   * Aggiorna i totali
+   */
+  ngAfterContentChecked() {
+    this.ordersT = 0;
+    this.totItems = 0;
     this.customer?.orders.forEach(order => {
-      newOrdersT += Number(order.total);
-      newTotItems += Number(order.items)
+      this.ordersT += Number(order.total);
+      this.totItems += Number(order.items)
     });
-    this.ordersT = newOrdersT;
-    this.totItems = newTotItems;
   }
-
 }

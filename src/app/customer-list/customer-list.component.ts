@@ -1,5 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { EventType } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { ICustomer } from '../customer';
 import { CustomerSelectedService } from '../customer-selected.service';
 
@@ -8,42 +7,53 @@ import { CustomerSelectedService } from '../customer-selected.service';
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.css']
 })
-export class CustomerListComponent implements OnInit {
+export class CustomerListComponent {
 
   public customers: ICustomer[] = [];
 
   constructor(private _customerSelectedService: CustomerSelectedService) { }
 
-  ngOnInit(): void {
-  }
-
-  // seleziona il customer di cui si vedrà il detail
-  selectedCustomer(customer: ICustomer) {
+  /**
+   * Apre il dettaglio del cliente selezionato
+   * @param customer Istanza del cliente selezionato
+   */
+   onCustomerClicked(customer: ICustomer) {
     this._customerSelectedService.sendCustomer(customer);
   }
 
-  // cambia la proprietà selected da vero a falso o viceversa quando si spunta la checkbox
-  onChangeCustomer($event: Event){
-    const target = $event.target as HTMLInputElement;
-    const id = Number(target.value);
-    const isChecked = target.checked;
-    
-    this.customers.map(customer => {
-      if(customer.id === id) {
-        customer.selected = isChecked;      
-      }
-    })
+  /**
+   * Imposta la proprietà selected del Customer selezionato.
+   * Ho modificato questo metodo perchè non serve ciclare l'array se ti passi il client dal template HTML
+   * La proprietà selected del customer è già binded alla proprietà checked per cui basta impostare il
+   * valore contrario a quello già selezionato.
+   * @param $event Dati evento
+   * @param customer Customer corrente
+   */
+  onChangeCustomer($event: Event, customer: ICustomer) {
+    customer.selected = !customer.selected;
   }
 
-  // aggiunge un customer
-  addCustomer(){
-    let customer = {id: this.customers.length + 1, name: `Customer ${this.customers.length + 1}`, address: "", city: "", orders: [], selected: false };
+  /**
+   * Aggiunge un Customer.
+   * Bisogna usare questo tipo di commento perchè in questo modo quando sei con il puntatore
+   * del mouse sopra un metodo, ti fa vedere il commento anche se sei in un altro componente.
+   */
+  addCustomer() {
+    let customer = {} as ICustomer;
+    customer.id = this.customers.length + 1
+    customer.name = `Customer ${this.customers.length + 1}`
+    customer.address = "";
+    customer.city = ""
+    customer.orders = [];
+    customer.selected = false;
     this.customers.push(customer);
   }
 
-  // rimuove i customer selezionati
-  removeCustomer(){
-    let newCustomers = this.customers.filter(customer => !customer.selected);
-    this.customers = newCustomers;
+  /**
+   * Rimuove i clienti selezionati
+   * Qui la rimozione puoi farla direttamente.
+   */
+  removeCustomer() {
+    this.customers = this.customers.filter(customer => !customer.selected);
   }
 }
